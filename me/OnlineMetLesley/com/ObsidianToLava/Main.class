@@ -1,0 +1,26 @@
+package me.OnlineMetlesley.com.ObsidianToLava;
+
+import org.bukkit.Bukkit;
+import org.bukkit.Server;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.event.Listener;
+import org.bukkit.plugin.Plugin;
+import org.bukkit.plugin.java.JavaPlugin;
+
+public class Main extends JavaPlugin implements Listener {
+   FileConfiguration config = this.getConfig();
+   Server getserver = this.getServer();
+   public static Plugin instance;
+
+   public Plugin getInstance() {
+      return instance;
+   }
+
+   public void onEnable() {
+      instance = this;
+      this.saveDefaultConfig();
+      this.config.options().copyDefaults(true);
+      Bukkit.getServer().getPluginManager().registerEvents(new BucketFillEvent(), this);
+      new MetricsLite(this);
+   }
+}
